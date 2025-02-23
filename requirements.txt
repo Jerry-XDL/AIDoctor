@@ -1,0 +1,7 @@
+transformers>=4.28.1
+datasets
+tensorboard
+tqdm>=4.47.0
+peft>=0.3.0
+trl
+mdtex2html
