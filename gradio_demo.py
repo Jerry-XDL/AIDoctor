@@ -1,26 +1,44 @@
 # -*- coding: utf-8 -*-
 """
 @author:XuMing(xuming624@qq.com)
-@description: 
+@description:
+
+pip install gradio
+pip install mdtex2html
 """
 import argparse
 import os
-import sys
 
 import gradio as gr
 import mdtex2html
 import torch
 from peft import PeftModel
-from transformers import LlamaForCausalLM, LlamaTokenizer, GenerationConfig
+from transformers import (
+    AutoModel,
+    AutoTokenizer,
+    BloomForCausalLM,
+    BloomTokenizerFast,
+    LlamaTokenizer,
+    LlamaForCausalLM,
+    GenerationConfig,
+)
+
+MODEL_CLASSES = {
+    "bloom": (BloomForCausalLM, BloomTokenizerFast),
+    "chatglm": (AutoModel, AutoTokenizer),
+    "llama": (LlamaForCausalLM, LlamaTokenizer),
+}
 
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--model_type', default=None, type=str, required=True)
     parser.add_argument('--base_model', default=None, type=str, required=True)
-    parser.add_argument('--lora_model', default=None, type=str, help="If None, perform inference on the base model")
+    parser.add_argument('--lora_model', default="", type=str, help="If None, perform inference on the base model")
     parser.add_argument('--tokenizer_path', default=None, type=str)
     parser.add_argument('--gpus', default="0", type=str)
     parser.add_argument('--only_cpu', action='store_true', help='only use CPU for inference')
+    parser.add_argument('--resize_emb', action='store_true', help='Whether to resize model token embeddings')
     args = parser.parse_args()
     if args.only_cpu is True:
         args.gpus = ""
@@ -52,31 +70,33 @@ def main():
         device = torch.device(0)
     else:
         device = torch.device('cpu')
-    if args.tokenizer_path is None:
-        args.tokenizer_path = args.lora_model
-        if args.lora_model is None:
-            args.tokenizer_path = args.base_model
-    tokenizer = LlamaTokenizer.from_pretrained(args.tokenizer_path)
 
-    base_model = LlamaForCausalLM.from_pretrained(
+    if args.tokenizer_path is None and os.path.exists(
+            os.path.join(args.lora_model, "tokenizer_config.json")):
+        args.tokenizer_path = args.lora_model
+    else:
+        args.tokenizer_path = args.base_model
+    model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
+    tokenizer = tokenizer_class.from_pretrained(args.tokenizer_path, trust_remote_code=True)
+    base_model = model_class.from_pretrained(
         args.base_model,
         load_in_8bit=False,
         torch_dtype=load_type,
         low_cpu_mem_usage=True,
         device_map='auto',
+        trust_remote_code=True,
     )
-
-    model_vocab_size = base_model.get_input_embeddings().weight.size(0)
-    tokenzier_vocab_size = len(tokenizer)
-    print(f"Vocab of the base model: {model_vocab_size}")
-    print(f"Vocab of the tokenizer: {tokenzier_vocab_size}")
-    if model_vocab_size != tokenzier_vocab_size:
-        assert tokenzier_vocab_size > model_vocab_size
-        print("Resize model embeddings to fit tokenizer")
-        base_model.resize_token_embeddings(tokenzier_vocab_size)
-    if args.lora_model is not None:
-        print("loading peft model")
-        model = PeftModel.from_pretrained(base_model, args.lora_model, torch_dtype=load_type, device_map='auto', )
+    if args.resize_emb:
+        model_vocab_size = base_model.get_input_embeddings().weight.size(0)
+        tokenzier_vocab_size = len(tokenizer)
+        print(f"Vocab of the base model: {model_vocab_size}")
+        print(f"Vocab of the tokenizer: {tokenzier_vocab_size}")
+        if model_vocab_size != tokenzier_vocab_size:
+            print("Resize model embeddings to fit tokenizer")
+            base_model.resize_token_embeddings(tokenzier_vocab_size)
+    if args.lora_model:
+        model = PeftModel.from_pretrained(base_model, args.lora_model, torch_dtype=load_type, device_map='auto')
+        print("loaded lora model")
     else:
         model = base_model
 
@@ -98,9 +118,6 @@ def main():
     {instruction}
     
     ### Response: """
-
-    if torch.__version__ >= "2" and sys.platform != "win32":
-        model = torch.compile(model)
 
     def predict(
             input,
@@ -152,11 +169,9 @@ def main():
         return chatbot, history
 
     with gr.Blocks() as demo:
-        gr.HTML("""<h1 align="center">Chinese LLaMA & Alpaca LLM</h1>""")
-        current_file_path = os.path.abspath(os.path.dirname(__file__))
-        gr.Image(f'{current_file_path}/../pics/banner.png', label='Chinese LLaMA & Alpaca LLM')
+        gr.HTML("""<h1 align="center">AIDoctor</h1>""")
         gr.Markdown(
-            "> 为了促进医疗行业大模型的开放研究，本项目开源了MedicalGPT医疗大模型")
+            "> 为了促进医疗行业大模型的开放研究，本项目开源了AIDoctor医疗大模型")
         chatbot = gr.Chatbot()
         with gr.Row():
             with gr.Column(scale=4):
