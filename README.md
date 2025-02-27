@@ -8,7 +8,7 @@
 
 # AIDoctor: Training Medical GPT Model
 
-[![HF Models](https://img.shields.io/badge/Hugging%20Face-shibing624-green)]() [![Github Stars](https://img.shields.io/github/stars/Jerry-XDL/AIDoctor?color=yellow)](https://star-history.com/#Jerry-XDL/AIDoctor&Timeline) [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md) [![License Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE) [![python_version](https://img.shields.io/badge/Python-3.8%2B-green.svg)](requirements.txt) [![GitHub issues](https://img.shields.io/github/issues/Jerry-XDL/AIDoctor.svg)](https://github.com/Jerry-XDL/AIDoctor/issues) [![Wechat Group](http://vlog.sfyc.ltd/wechat_everyday/wxgroup_logo.png?imageView2/0/w/60/h/20)](#Contact)
+[![HF Models](https://img.shields.io/badge/Hugging%20Face-shibing624-green)]() [![Github Stars](https://img.shields.io/github/stars/Jerry-XDL/AIDoctor?color=yellow)](https://star-history.com/#Jerry-XDL/AIDoctor&Timeline) [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md) [![License Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE) [![python_version](https://img.shields.io/badge/Python-3.8%2B-green.svg)](requirements.txt) [![GitHub issues](https://img.shields.io/github/issues/Jerry-XDL/AIDoctor.svg)](https://github.com/Jerry-XDL/AIDoctor/issues)
 
 ## 📖 Introduction
 
@@ -132,15 +132,6 @@ Parameter Description:
 -   `--predictions_file {file_name}`: In non-interactive mode, write the predicted results to file_name in json format
 -   `--use_cpu`: use only CPU for inference
 -   `--gpus {gpu_ids}`: Specifies the number of GPU devices used, the default is 0. If using multiple GPUs, separate them with commas, such as 0,1,2
-
-#### Inference Examples
-
-<details>
-| Human | Assistant |
-| ----- | ------ |
-| How to make yourself energetic, list 5 suggestions | Here are some suggestions to keep you energetic: <br/>1. Get enough sleep. Make sure to get enough sleep every night. <br/>2. Exercise more. Doing moderate aerobic exercise, such as jogging and swimming, can help improve your energy and stamina. 3. Eat healthy food. Choose protein-rich foods such as chicken, fish, and eggs, as well as fresh fruits and vegetables. 4. Reduce caffeine intake. Try to avoid drinking caffeinated beverages or eating caffeinated foods during the day. <br/>5. Relax. Try meditation, yoga, or other forms of relaxation to reduce stress and anxiety. |
-</details>
-<br/>
 
 ## 📚 Dataset
 
