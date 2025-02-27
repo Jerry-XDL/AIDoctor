@@ -158,10 +158,7 @@ Parameter Description:
 ## ☎️ Contact
 
 -   Issue (suggestion) : [![GitHub issues](https://img.shields.io/github/issues/Jerry-XDL/AIDoctor.svg)](https://github.com/Jerry-XDL/AIDoctor/issues)
--   Email me: xuming: xuming624@qq.com
--   WeChat Me: Add me* WeChat ID: xuming624, Remarks: Name-Company Name-NLP* Enter the NLP exchange group.
-
-<img src="https://github.com/Jerry-XDL/AIDoctor/blob/main/docs/wechat.jpeg" width="200" />
+-   Email me: jerry: jerry-xd@outlook.com
 
 ## ⚠️ Limitations, Restrictions of Use and Disclaimer
 
