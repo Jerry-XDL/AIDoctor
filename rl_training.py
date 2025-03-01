@@ -45,6 +45,7 @@ PROMPT_TEMPLATE = (
 @dataclass
 class ScriptArguments:
     """
+    show 
     The name of the Casual LM model we wish to fine with PPO
     """
     # Model arguments
