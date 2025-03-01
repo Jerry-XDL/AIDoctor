@@ -125,8 +125,8 @@ def main():
             print("Start inference with instruction mode.")
 
             print('=' * 85)
-            print("+ 该模式下仅支持单轮问答，无多轮对话能力。\n"
-                  "+ 如要进行多轮对话，请使用llama.cpp或llamachat工具。")
+            print("+ In this mode, only single round Q&A is supported and there is no ability for multiple rounds of dialogue。\n"
+                  "+ If you want to have multiple rounds of conversation, please use llama.cpp or llamakhat tools。")
             print('-' * 85)
             print("+ This mode only supports single-turn QA.\n"
                   "+ If you want to experience multi-turn dialogue, please use llama.cpp or llamachat.")
