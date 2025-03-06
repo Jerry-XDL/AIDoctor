@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
+""" 
 @description: 
 """
 import argparse
@@ -124,9 +123,7 @@ def main():
         if args.interactive:
             print("Start inference with instruction mode.")
 
-            print('=' * 85)
-            print("+ In this mode, only single round Q&A is supported and there is no ability for multiple rounds of dialogue。\n"
-                  "+ If you want to have multiple rounds of conversation, please use llama.cpp or llamakhat tools。")
+          
             print('-' * 85)
             print("+ This mode only supports single-turn QA.\n"
                   "+ If you want to experience multi-turn dialogue, please use llama.cpp or llamachat.")
