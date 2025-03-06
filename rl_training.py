@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
+""" 
 @description: Train a model from SFT using PPO
 """
 
@@ -8,6 +7,7 @@ import os
 from dataclasses import dataclass, field
 from glob import glob
 from typing import Optional
+
 import torch
 from datasets import load_dataset
 from loguru import logger
@@ -44,7 +44,6 @@ PROMPT_TEMPLATE = (
 @dataclass
 class ScriptArguments:
     """
-    show 
     The name of the Casual LM model we wish to fine with PPO
     """
     # Model arguments
@@ -192,7 +191,8 @@ def get_reward_score(reward_model, reward_tokenizer, question, answer, device):
     score = reward_model(**inputs).logits[0].cpu().detach()
 
     return score
-#modify 
+
+
 def main():
     parser = HfArgumentParser(ScriptArguments)
     args = parser.parse_args_into_dataclasses()[0]
