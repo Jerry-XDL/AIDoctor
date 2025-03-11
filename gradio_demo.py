@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-@author:XuMing(xuming624@qq.com)
+""" 
 @description:
 
 pip install gradio
@@ -169,9 +168,6 @@ def main():
         return chatbot, history
 
     with gr.Blocks() as demo:
-        gr.HTML("""<h1 align="center">AIDoctor</h1>""")
-        gr.Markdown(
-            "> 为了促进医疗行业大模型的开放研究，本项目开源了AIDoctor医疗大模型")
         chatbot = gr.Chatbot()
         with gr.Row():
             with gr.Column(scale=4):

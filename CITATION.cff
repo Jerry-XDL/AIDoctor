@@ -1,8 +1,5 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-authors:
-    - family-names: "Xu"
-      given-names: "Ming"
 title: "AIDoctor: Training Your Own Medical GPT Model with ChatGPT Training Pipeline"
 url: "https://github.com/Jerry-XDL/AIDoctor"
 data-released: 2023-06-02
